@@ -35,6 +35,7 @@ remote-cert-tls server
 cipher AES-256-GCM
 auth-nocache
 verb 3
+mute-replay-warnings
 <ca>
 $CatCA
 </ca>

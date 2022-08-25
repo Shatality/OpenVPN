@@ -58,6 +58,7 @@ persist-tun
 status /var/log/openvpn/openvpn-status.log
 verb 3
 explicit-exit-notify 1
+mute-replay-warnings
 EOF
 # Запускаем сервер
 sudo systemctl start openvpn@server
