@@ -70,6 +70,9 @@ sudo sysctl -p /etc/sysctl.conf
 # НАСТРОЙКА БРАНДМАУЭРА
 ip -br a
 # Теперь мы видим адрес и имя внешнего интерфейса
+# Устанавливаем iptables
+yes | sudo apt install iptables
+# Добавляем правила 
 sudo iptables -I FORWARD -i tun0 -o eth0 -j ACCEPT
 sudo iptables -I FORWARD -i eth0 -o tun0 -j ACCEPT
 sudo iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
@@ -82,7 +85,12 @@ sudo iptables -A INPUT -i lo -j ACCEPT
 sudo iptables -A INPUT -p icmp -j ACCEPT
 sudo iptables -A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT
 sudo iptables -P INPUT DROP
-# Устанавливаем iptables
-yes | sudo apt install iptables
+# Устанавлиаем и переконфигурируем дополнительные инструменты:
+sudo apt-get install iptables-persistent
+sudo dpkg-reconfigure iptables-persistent
+# Сохраняем правила, чтобы всё работало после перезагрузки:
+sudo netfilter-persistent save
+# Добавляем iptables в автозагрузку
+sudo systemctl enable iptables
 # Создаем папку для генерации ключей для клиентов
 sudo mkdir /etc/openvpn/clients
