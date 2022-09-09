@@ -77,8 +77,6 @@ sudo iptables -I FORWARD -i tun0 -o eth0 -j ACCEPT
 sudo iptables -I FORWARD -i eth0 -o tun0 -j ACCEPT
 sudo iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
 sudo iptables -A INPUT -p tcp --dport=22 -j ACCEPT
-sudo iptables -A INPUT -p tcp --dport=80 -j ACCEPT
-sudo iptables -A INPUT -p tcp --dport=443 -j ACCEPT
 sudo iptables -A INPUT -p udp -m udp --dport 1194 -j ACCEPT
 sudo iptables -A OUTPUT -p udp -m udp --sport 1194 -j ACCEPT
 sudo iptables -A INPUT -i lo -j ACCEPT
