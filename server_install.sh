@@ -75,6 +75,8 @@ yes | sudo apt install iptables
 # Добавляем правила 
 sudo iptables -I FORWARD -i tun0 -o eth0 -j ACCEPT
 sudo iptables -I FORWARD -i eth0 -o tun0 -j ACCEPT
+sudo iptables -I FORWARD -p tcp -m ipp2p --bit -j DROP
+sudo iptables -I FORWARD -p udp -m ipp2p --bit -j DROP
 sudo iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
 sudo iptables -A INPUT -p tcp --dport=22 -j ACCEPT
 sudo iptables -A INPUT -p udp -m udp --dport 1194 -j ACCEPT
